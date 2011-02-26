@@ -41,8 +41,10 @@ class elasticsearch-build{
    }
    exec{"/opt/elasticsearch-src/gradlew":
       require=>Exec["clone-elasticsearch"]
-      ,cretes=>"/opt/elasticsearch-src/build/distributions"
+      ,creates=>"/opt/elasticsearch-src/build/distributions"
    }
+  file{["/opt/elasticsearch-src/package","/opt/elasticsearch-src/package/DEBIAN"]: ensure=>directory}
+  file{"/opt/elasticsearch-src/package/DEBIAN/control": source=>"/vagrant/elasticsearch/package/DEBIAN/control"}
 }
 include grok-build
 include elasticsearch-build

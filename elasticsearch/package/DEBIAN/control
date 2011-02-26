@@ -1,0 +1,8 @@
+Package: elasticsearch
+Version: 0.16
+Section: utilities
+Maintainer: Chris May
+Architecture: all
+Depends: openjdk-6-jdk
+Description: Search service
+
