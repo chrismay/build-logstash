@@ -1,0 +1,8 @@
+Package: grok
+Version: 1.1
+Section: utilities
+Maintainer: Chris May
+Architecture: all
+Depends: libevent-1.4-2,libpcre3,libtokyocabinet8
+Description: Magic Regex thing
+
