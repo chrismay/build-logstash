@@ -43,11 +43,21 @@ class elasticsearch-build{
       require=>Exec["clone-elasticsearch"]
       ,creates=>"/opt/elasticsearch-src/build/distributions"
    }
-  file{["/opt/elasticsearch-src/package","/opt/elasticsearch-src/package/DEBIAN"]: ensure=>directory}
-  file{"/opt/elasticsearch-src/package/DEBIAN/control": source=>"/vagrant/elasticsearch/package/DEBIAN/control"}
+  file{["/opt/elasticsearch-src/package","/opt/elasticsearch-src/package/DEBIAN"]: 
+     ensure=>directory,
+     require=>Exec[clone-elasticsearch]
+  }
+  file{"/opt/elasticsearch-src/package/DEBIAN/control": 
+     source=>"/vagrant/elasticsearch/package/DEBIAN/control",
+     require=>Exec[clone-elasticsearch]
+  }
+}
+exec{"/usr/bin/aptitude update && touch /var/run/aptitude-updated":
+    creates=>"/var/run/aptitude-updated",
+    alias=>"apt-update"
 }
 Package{
-   require=>File["/etc/apt/apt.conf.d/01proxy"]
+   require=>[File["/etc/apt/apt.conf.d/01proxy"],Exec["apt-update"]]
 }
 file{"/etc/apt/apt.conf.d/01proxy":
   content=>"Acquire::http { Proxy \"http://liathach:3142\"; };"
