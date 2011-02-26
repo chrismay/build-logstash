@@ -41,9 +41,10 @@ class elasticsearch-build{
    }
    exec{"/opt/elasticsearch-src/gradlew > /tmp/elasticsearch-gradle.out 2>&1":
        cwd=>"/opt/elasticsearch-src",
-      require=>Exec["clone-elasticsearch"],
+      require=>[Exec["clone-elasticsearch"],Package["openjdk-6-jdk"]],
       creates=>"/opt/elasticsearch-src/build/distributions/elasticsearch-${es_version}.tar.gz",
-      alias=>"build-elasticsearch"
+      alias=>"build-elasticsearch",
+      timeout=>-1
    }
   file{["/opt/elasticsearch-src/package","/opt/elasticsearch-src/package/DEBIAN", "/opt/elasticsearch-src/package/opt"]: 
      ensure=>directory,
