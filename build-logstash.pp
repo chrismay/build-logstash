@@ -44,7 +44,7 @@ class elasticsearch-build{
       require=>[Exec["clone-elasticsearch"],Package["openjdk-6-jdk"]],
       creates=>"/opt/elasticsearch-src/build/distributions/elasticsearch-${es_version}.tar.gz",
       alias=>"build-elasticsearch",
-      timeout=>-1
+      timeout=>"-1"
    }
   file{["/opt/elasticsearch-src/package","/opt/elasticsearch-src/package/DEBIAN", "/opt/elasticsearch-src/package/opt"]: 
      ensure=>directory,
