@@ -46,5 +46,11 @@ class elasticsearch-build{
   file{["/opt/elasticsearch-src/package","/opt/elasticsearch-src/package/DEBIAN"]: ensure=>directory}
   file{"/opt/elasticsearch-src/package/DEBIAN/control": source=>"/vagrant/elasticsearch/package/DEBIAN/control"}
 }
+Package{
+   require=>File["/etc/apt/apt.conf.d/01proxy"]
+}
+file{"/etc/apt/apt.conf.d/01proxy":
+  content=>"Acquire::http { Proxy \"http://liathach:3142\"; };"
+}
 include grok-build
 include elasticsearch-build
