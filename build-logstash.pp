@@ -78,5 +78,5 @@ file{"/etc/apt/apt.conf.d/01proxy":
   content=>"Acquire::http { Proxy \"http://liathach:3142\"; };"
 }
 include grok-build
-$es_version="0.15.0"
+$es_version="0.13.1"
 include elasticsearch-build
